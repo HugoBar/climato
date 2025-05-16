@@ -1,10 +1,14 @@
 {
   "name": "climato",
+  "bin": {
+    "climato": "./dist/index.js"
+  },
   "version": "0.0.1",
   "description": "checks weather",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsc -w",
+    "link-cli": "pnpm --global unlink climato && pnpm link --global"
   },
   "repository": {
     "type": "git",
@@ -19,5 +23,8 @@
   "homepage": "https://github.com/HugoBar/climato#readme",
   "devDependencies": {
     "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@types/node": "^22.15.18"
   }
 }
