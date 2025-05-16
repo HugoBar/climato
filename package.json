@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc -w",
-    "link-cli": "pnpm --global unlink climato && pnpm link --global"
+    "link-cli": "(pnpm --global unlink climato || true) && pnpm link --global"
   },
   "repository": {
     "type": "git",
