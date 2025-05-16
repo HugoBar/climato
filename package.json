@@ -3,7 +3,7 @@
   "bin": {
     "climato": "./dist/index.js"
   },
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "checks weather",
   "main": "index.js",
   "type": "module",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@types/node": "^22.15.18",
+    "axios": "^1.9.0",
     "meow": "^13.2.0"
   }
 }
