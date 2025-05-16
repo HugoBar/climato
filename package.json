@@ -1,0 +1,23 @@
+{
+  "name": "climato",
+  "version": "1.0.0",
+  "description": "checks weather",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HugoBar/climato.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HugoBar/climato/issues"
+  },
+  "homepage": "https://github.com/HugoBar/climato#readme",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
