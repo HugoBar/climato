@@ -1,6 +1,6 @@
 {
   "name": "climato",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "checks weather",
   "main": "index.js",
   "scripts": {
