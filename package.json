@@ -6,6 +6,7 @@
   "version": "0.0.1",
   "description": "checks weather",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "tsc -w",
     "link-cli": "(pnpm --global unlink climato || true) && pnpm link --global"
@@ -25,6 +26,7 @@
     "typescript": "^5.8.3"
   },
   "dependencies": {
-    "@types/node": "^22.15.18"
+    "@types/node": "^22.15.18",
+    "meow": "^13.2.0"
   }
 }
