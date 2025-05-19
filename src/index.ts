@@ -47,14 +47,31 @@ async function main() {
 
   // Parse city flag
   const city: string = cli.flags.city ? cli.flags.city : config.get("city");
+  if (!city) {
+    return console.log(
+      "No city provided. Please use --city or configure a default city."
+    );
+  }
   report.city = findOnTheMap(city);
 
   // Build weather report
   if (report.city) {
+    try {
     const forecast = await getForecast(report.city);
+
     report.minTemp = Number(forecast.tMin);
     report.maxTemp = Number(forecast.tMax);
     report.precipitationProb = Number(forecast.precipitaProb);
+
+      return console.log(report)
+    } catch (error) {}
+  } else {
+    console.log("City was not found.");
+    console.log("Only district capitals are supported.");
+    console.log(
+      "\nSupported district capitals include:  Aveiro, Braga, Guimarães, Coimbra ... "
+    );
+    console.log("See full list at: ./json/cities.json");
   }
 
   if (cli.flags.setDefault) {

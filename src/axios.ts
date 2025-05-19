@@ -15,15 +15,15 @@ axios.interceptors.response.use(
         break;
 
       case 401:
-        console.error("unauthorised");
+        console.error("401 - Unauthorised");
         break;
 
       case 404:
-        console.error("/not-found");
+        console.error("404 - Not found");
         break;
 
       case 500:
-        console.error("/server-error");
+        console.error("500 - Server error");
         break;
     }
     return Promise.reject(error);
