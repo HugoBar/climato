@@ -4,8 +4,8 @@ import meow from "meow";
 
 import { getForecast } from "./axios.js";
 import { findOnTheMap } from "./helpers.js";
-import { City } from "./interfaces/city.js";
 import { WeatherReport } from "./interfaces/weatherReport.js";
+import { config } from "./config.js";
 
 const cli = meow(
   `
@@ -22,13 +22,9 @@ const cli = meow(
   {
     importMeta: import.meta,
     flags: {
-      config: {
-        type: "boolean",
-        shortFlag: "c",
-      },
       help: {
         type: "boolean",
-        shortFlag: "c",
+        shortFlag: "h",
       },
       force: {
         type: "boolean",
@@ -36,18 +32,24 @@ const cli = meow(
       },
       city: {
         type: "string",
+        shortFlag: "c",
+      },
+      setDefault: {
+        type: "string",
+        isMultiple: true,
       },
     },
   }
 );
 
 async function main() {
-	let report: WeatherReport = {}
+  let report: WeatherReport = {};
 
-  if (cli.flags.city) {
-    report.city = findOnTheMap(cli.flags.city)
-  } 
+  // Parse city flag
+  const city: string = cli.flags.city ? cli.flags.city : config.get("city");
+  report.city = findOnTheMap(city);
 
+  // Build weather report
 	if (report.city) {
   	const forecast = await getForecast(report.city);
 		report.minTemp = Number(forecast.tMin)
