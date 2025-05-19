@@ -45,6 +45,7 @@ const cli = meow(
 async function main() {
   let report: WeatherReport = {};
 
+  console.log("Welcome to CLIMATO\n");
   // Parse city flag
   const city: string = cli.flags.city ? cli.flags.city : config.get("city");
   if (!city) {
@@ -74,6 +75,7 @@ async function main() {
     console.log("See full list at: ./json/cities.json");
   }
 
+  // Assign default values if present
   if (cli.flags.setDefault) {
     cli.flags.setDefault.forEach((f) => {
       const [key, value] = f.split("=");
@@ -83,9 +85,6 @@ async function main() {
       }
     });
   }
-
-  console.log("Welcome to CLIMATO");
-  console.log(report);
 }
 
 main();
