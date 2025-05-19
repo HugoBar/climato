@@ -50,12 +50,22 @@ async function main() {
   report.city = findOnTheMap(city);
 
   // Build weather report
-	if (report.city) {
-  	const forecast = await getForecast(report.city);
-		report.minTemp = Number(forecast.tMin)
-		report.maxTemp = Number(forecast.tMax)
-		report.precipitationProb = Number(forecast.precipitaProb)
-	}
+  if (report.city) {
+    const forecast = await getForecast(report.city);
+    report.minTemp = Number(forecast.tMin);
+    report.maxTemp = Number(forecast.tMax);
+    report.precipitationProb = Number(forecast.precipitaProb);
+  }
+
+  if (cli.flags.setDefault) {
+    cli.flags.setDefault.forEach((f) => {
+      const [key, value] = f.split("=");
+      if (key && value) {
+        config.set(key, value);
+        console.log(`Set new default value: ${key} = ${value}`);
+      }
+    });
+  }
 
   console.log("Welcome to CLIMATO");
   console.log(report);
