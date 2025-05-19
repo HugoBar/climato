@@ -6,6 +6,7 @@ import { getForecast } from "./axios.js";
 import { findOnTheMap } from "./helpers.js";
 import { WeatherReport } from "./interfaces/weatherReport.js";
 import { config } from "./config.js";
+import { messages } from "./messages.js";
 
 const cli = meow(
   `
@@ -55,7 +56,7 @@ const cli = meow(
 async function main() {
   let report: WeatherReport = {};
 
-  console.log("Welcome to CLIMATO\n");
+  console.log("Welcome to CLIMATO");
   // Parse city flag
   const city: string = cli.flags.city ? cli.flags.city : config.get("city");
   if (!city) {
@@ -74,15 +75,10 @@ async function main() {
       report.maxTemp = Number(forecast.tMax);
       report.precipitationProb = Number(forecast.precipitaProb);
 
-      return console.log(report)
+      console.log(messages.success.forecast(report));
     } catch (error) {}
   } else {
-    console.log("City was not found.");
-    console.log("Only district capitals are supported.");
-    console.log(
-      "\nSupported district capitals include:  Aveiro, Braga, Guimarães, Coimbra ... "
-    );
-    console.log("See full list at: ./json/cities.json");
+    console.log(messages.error.notFound(city));
   }
 
   // Assign default values if present
