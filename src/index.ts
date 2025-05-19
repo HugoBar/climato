@@ -13,11 +13,21 @@ const cli = meow(
 	  $ climato <input>
 
 	Options
-	  --rainbow, -r  Include a rainbow
+	  --help,         -h        Display help message (TODO)
+	  --force,        -f        Force action without user confirmation (TODO if necessary)
+	  --city,         -c        Specify the city. Falls back to config default if not provided
+	  --set-default,             Set new default values in the config
 
 	Examples
-	  $ foo unicorns --rainbow
-	  🌈 unicorns 🌈
+	  $ climate --city Porto
+        Runs the command using Lisbon as the city
+    
+    $ climate set-default city=Lisboa
+        Sets Lisboa as the new default city in the config
+
+    $ climate 
+         Uses default city from config (if set)
+
 `,
   {
     importMeta: import.meta,
@@ -58,11 +68,11 @@ async function main() {
   // Build weather report
   if (report.city) {
     try {
-    const forecast = await getForecast(report.city);
+      const forecast = await getForecast(report.city);
 
-    report.minTemp = Number(forecast.tMin);
-    report.maxTemp = Number(forecast.tMax);
-    report.precipitationProb = Number(forecast.precipitaProb);
+      report.minTemp = Number(forecast.tMin);
+      report.maxTemp = Number(forecast.tMax);
+      report.precipitationProb = Number(forecast.precipitaProb);
 
       return console.log(report)
     } catch (error) {}
