@@ -7,19 +7,25 @@ export const messages = {
   `
   Forecast for ${report.city?.local}:
 
-  The maximum temperature is ${temperatureToString(report.maxTemp, report.tempScale)}
-  The minimum temperature is ${temperatureToString(report.minTemp, report.tempScale)} ºC
+  The maximum temperature is ${temperatureToString(Number(report.maxTemp), report.tempScale)}
+  The minimum temperature is ${temperatureToString(Number(report.minTemp), report.tempScale)}
   The percipitation probability is ${report.precipitationProb}%
   `
   },
   error: {
-    notFound: (cityName: string) => 
+    cityNotFound: (cityName: string) => 
   ` 
   City was not found - ${cityName}
   Only district capitals are supported.
 
   Supported district capitals include:  Aveiro, Braga, Guimarães, Coimbra ...
   See full list at: ./json/cities.json
+  `,
+    invalidTempScale: (tempScale: string) => 
+  `
+  Temperature scale not supported - ${tempScale}
+  
+  Supported temperature scales are: Celsius and Fahrenheit.
   `
   }
 }

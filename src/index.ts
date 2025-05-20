@@ -7,6 +7,7 @@ import { findOnTheMap } from "./helpers.js";
 import { WeatherReport } from "./interfaces/weatherReport.js";
 import { config } from "./config.js";
 import { messages } from "./messages.js";
+import { City } from "./interfaces/city.js";
 
 const cli = meow(
   `
@@ -47,7 +48,7 @@ const cli = meow(
       },
       tempScale: {
         type: "string",
-        shortFlag: "ts"
+        shortFlag: "ts",
       },
       setDefault: {
         type: "string",
@@ -57,32 +58,33 @@ const cli = meow(
   }
 );
 
+type TempScale = "celsius" | "fahrenheit";
+
 async function main() {
-  let report: WeatherReport = {};
+  let city: City;
+  let forecast: { tMax: string; tMin: string; precipitaProb: string };
+  let tempScale: TempScale;
 
   console.log("Welcome to CLIMATO");
-  // Parse city flag
-  const city: string = cli.flags.city ? cli.flags.city : config.get("city");
-  if (!city) {
+  // Resolve city flag
+  const cityName: string = cli.flags.city ? cli.flags.city : config.get("city");
+  if (cityName) {
+    city = await findOnTheMap(cityName);
+
+    if (city) {
+      try {
+        const { tMax, tMin, precipitaProb } = await getForecast(city);
+        forecast = { tMax, tMin, precipitaProb };
+      } catch (error) {
+        return;
+      }
+    } else {
+      return console.log(messages.error.cityNotFound(city));
+    }
+  } else {
     return console.log(
       "No city provided. Please use --city or configure a default city."
     );
-  }
-  report.city = findOnTheMap(city);
-
-  // Build weather report
-  if (report.city) {
-    try {
-      const forecast = await getForecast(report.city);
-
-      report.minTemp = Number(forecast.tMin);
-      report.maxTemp = Number(forecast.tMax);
-      report.precipitationProb = Number(forecast.precipitaProb);
-
-      console.log(messages.success.forecast(report));
-    } catch (error) {}
-  } else {
-    console.log(messages.error.notFound(city));
   }
 
   // Resolve temperature scale
@@ -90,11 +92,24 @@ async function main() {
     cli.flags.tempScale &&
     (cli.flags.tempScale === "celsius" || cli.flags.tempScale === "fahrenheit")
   ) {
-    report.tempScale = cli.flags.tempScale;
+    tempScale = cli.flags.tempScale as TempScale;
+  } else if (
+    cli.flags.tempScale &&
+    !(cli.flags.tempScale === "celsius" || cli.flags.tempScale === "fahrenheit")
+  ) {
+    return console.log(messages.error.invalidTempScale(cli.flags.tempScale));
   } else {
-    report.tempScale = config.get("tempScale");
+    tempScale = config.get("tempScale") as TempScale;
   }
 
+  // Build weater report
+  const report: WeatherReport = {
+    city,
+    minTemp: forecast.tMin,
+    maxTemp: forecast.tMax,
+    precipitationProb: forecast.precipitaProb,
+    tempScale,
+  };
   console.log(messages.success.forecast(report));
 
   // Assign default values if present
