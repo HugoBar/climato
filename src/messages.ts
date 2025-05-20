@@ -1,4 +1,5 @@
 import { WeatherReport } from "./interfaces/weatherReport.js";
+import { temperatureToString } from "./helpers.js";
 
 export const messages = {
   success: {
@@ -6,8 +7,8 @@ export const messages = {
   `
   Forecast for ${report.city?.local}:
 
-  The maximum temperature is ${report.maxTemp} ºC
-  The minimum temperature is ${report.minTemp} ºC
+  The maximum temperature is ${temperatureToString(report.maxTemp, report.tempScale)}
+  The minimum temperature is ${temperatureToString(report.minTemp, report.tempScale)} ºC
   The percipitation probability is ${report.precipitationProb}%
   `
   },

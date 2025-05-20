@@ -45,6 +45,10 @@ const cli = meow(
         type: "string",
         shortFlag: "c",
       },
+      tempScale: {
+        type: "string",
+        shortFlag: "ts"
+      },
       setDefault: {
         type: "string",
         isMultiple: true,
@@ -80,6 +84,18 @@ async function main() {
   } else {
     console.log(messages.error.notFound(city));
   }
+
+  // Resolve temperature scale
+  if (
+    cli.flags.tempScale &&
+    (cli.flags.tempScale === "celsius" || cli.flags.tempScale === "fahrenheit")
+  ) {
+    report.tempScale = cli.flags.tempScale;
+  } else {
+    report.tempScale = config.get("tempScale");
+  }
+
+  console.log(messages.success.forecast(report));
 
   // Assign default values if present
   if (cli.flags.setDefault) {

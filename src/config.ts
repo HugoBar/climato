@@ -5,6 +5,11 @@ const schema = {
     type: "string",
     default: "Lisboa",
   },
+  tempScale: {
+    type: "string",
+    enum: ["celsius", "fahrenheit"],
+    default: "celsius"
+  }
 };
 
 interface ConfigSchema {
