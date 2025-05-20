@@ -18,11 +18,15 @@ const cli = meow(
 	  --help,         -h        Display help message (TODO)
 	  --force,        -f        Force action without user confirmation (TODO if necessary)
 	  --city,         -c        Specify the city. Falls back to config default if not provided
-	  --set-default,             Set new default values in the config
+    --tempScale,    -ts       Specify the temperature scale. Falls back to config default if not provided
+	  --set-default,            Set new default values in the config
 
 	Examples
 	  $ climate --city Porto
-        Runs the command using Lisbon as the city
+        Runs using Porto as the city
+    
+    $ climato --tempScale fahrenheit
+	      Runs displaying the temperature in Fahrenheit (ºF) 
     
     $ climate set-default city=Lisboa
         Sets Lisboa as the new default city in the config
