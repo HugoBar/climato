@@ -69,7 +69,14 @@ async function main() {
   let forecast: { tMax: string; tMin: string; precipitaProb: string };
   let tempScale: TempScale;
 
-  console.log("Welcome to CLIMATO");
+  console.log(`
+   ____  _     ___ __  __    _  _____ ___  
+  / ___|| |   |_ _|  \\/  |  / \\|_   _/ _ \\ 
+  | |   | |    | || |\\/| | / _ \\ | || | | |
+  | |___| |___ | || |  | |/ ___ \\| || |_| |
+  \\____||_____|___|_|  |_/_/   \\_\\_| \\___/ 
+`);
+
   // Resolve city flag
   const cityName: string = cli.flags.city ? cli.flags.city : config.get("city");
   if (cityName) {
