@@ -18,7 +18,7 @@ const cli = meow(
 	  --help,         -h        Display help message (TODO)
 	  --force,        -f        Force action without user confirmation (TODO if necessary)
 	  --city,         -c        Specify the city. Falls back to config default if not provided
-    --tempScale,    -ts       Specify the temperature scale. Falls back to config default if not provided
+   --tempScale,    -ts       Specify the temperature scale. Falls back to config default if not provided
 	  --set-default,            Set new default values in the config
 
 	Examples
@@ -77,6 +77,17 @@ async function main() {
   \\____||_____|___|_|  |_/_/   \\_\\_| \\___/ 
 `);
 
+  // Assign default values if present
+  if (cli.flags.setDefault) {
+    cli.flags.setDefault.forEach((f) => {
+      const [key, value] = f.split("=");
+      if (key && value) {
+        config.set(key, value);
+        console.log(`Set new default value: ${key} = ${value}`);
+      }
+    });
+  }
+
   // Resolve city flag
   const cityName: string = cli.flags.city ? cli.flags.city : config.get("city");
   if (cityName) {
@@ -122,17 +133,6 @@ async function main() {
     tempScale,
   };
   console.log(messages.success.forecast(report));
-
-  // Assign default values if present
-  if (cli.flags.setDefault) {
-    cli.flags.setDefault.forEach((f) => {
-      const [key, value] = f.split("=");
-      if (key && value) {
-        config.set(key, value);
-        console.log(`Set new default value: ${key} = ${value}`);
-      }
-    });
-  }
 }
 
 main();
