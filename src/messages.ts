@@ -1,16 +1,17 @@
 import { WeatherReport } from "./interfaces/weatherReport.js";
 import { temperatureToString } from "./helpers.js";
+import chalk from 'chalk';
 
 export const messages = {
   success: {
     forecast: (report: WeatherReport) => 
   `
-  Forecast for ${report.city?.local}:
+                  ${report.city?.local.toLocaleUpperCase()}
 
-  The maximum temperature is ${temperatureToString(Number(report.maxTemp), report.tempScale)}
-  The minimum temperature is ${temperatureToString(Number(report.minTemp), report.tempScale)}
+  The maximum temperature is ${chalk.white.bgRed(temperatureToString(Number(report.maxTemp), report.tempScale))}
+  The minimum temperature is ${chalk.white.bgBlue(temperatureToString(Number(report.minTemp), report.tempScale))}
   The percipitation probability is ${report.precipitationProb}%
-  `
+  `,
   },
   error: {
     cityNotFound: (cityName: string) => 
