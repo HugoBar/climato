@@ -95,13 +95,13 @@ async function main() {
 
     if (city) {
       try {
-        const { tMax, tMin, precipitaProb } = await getForecast(city);
-        forecast = { tMax, tMin, precipitaProb };
+        const { tMax, tMin, probabilidadePrecipita } = await getForecast(city);
+        forecast = { tMax, tMin, precipitaProb: probabilidadePrecipita };
       } catch (error) {
         return;
       }
     } else {
-      return console.log(messages.error.cityNotFound(city));
+      return console.log(messages.error.cityNotFound(cityName));
     }
   } else {
     return console.log(
