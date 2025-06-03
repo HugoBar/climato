@@ -21,16 +21,16 @@ const cli = meow(
 	  --set-default,            Set new default values in the config
 
 	Examples
-	  $ climate --city Porto
+	  $ climato --city Porto
         Runs using Porto as the city
     
     $ climato --tempScale fahrenheit
 	      Runs displaying the temperature in Fahrenheit (ºF) 
     
-    $ climate set-default city=Lisboa
+    $ climato set-default city=Lisboa
         Sets Lisboa as the new default city in the config
 
-    $ climate 
+    $ climato 
          Uses default city from config (if set)
 
 `,
