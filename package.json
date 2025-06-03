@@ -9,7 +9,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsc -w",
-    "link-cli": "(pnpm --global unlink climato || true) && pnpm link --global"
+    "link-cli": "(pnpm --global unlink climato || true) && pnpm link --global",
+    "build": "tsc && xcopy src\\json\\cities.json dist\\json\\ /Y"
   },
   "repository": {
     "type": "git",
