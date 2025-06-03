@@ -15,8 +15,7 @@ const cli = meow(
 	  $ climato <input>
 
 	Options
-	  --help,         -h        Display help message (TODO)
-	  --force,        -f        Force action without user confirmation (TODO if necessary)
+	  --help,         -h        Display help message
 	  --city,         -c        Specify the city. Falls back to config default if not provided
    --tempScale,    -ts       Specify the temperature scale. Falls back to config default if not provided
 	  --set-default,            Set new default values in the config
@@ -41,10 +40,6 @@ const cli = meow(
       help: {
         type: "boolean",
         shortFlag: "h",
-      },
-      force: {
-        type: "boolean",
-        shortFlag: "f",
       },
       city: {
         type: "string",
