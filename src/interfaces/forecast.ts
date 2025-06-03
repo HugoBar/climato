@@ -1,20 +1,16 @@
 export interface ForecastEntry {
-  precipitaProb: string;
   tMin: string;
+  idFfxVento: number;
+  dataUpdate: string;
   tMax: string;
-  predWindDir: string;
-  idWeatherType: number;
-  classWindSpeed: number;
-  longitude: string;
-  forecastDate: string;
-  latitude: string;
-  classPrecInt?: number;
+  iUv: string;
+  intervaloHora: string;
+  idTipoTempo: number;
+  ipmaID: number;
+  probabilidadePrecipita: string;
+  idPeriodo: number;
+  dataPrev: string;
+  ddVento: string;
 }
 
-export interface ForecastResponse {
-  owner: string;
-  country: string;
-  data: ForecastEntry[];
-  globalIdLocal: number;
-  dataUpdate: string;
-}
+export type ForecastResponse = ForecastEntry[]

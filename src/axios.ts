@@ -34,6 +34,6 @@ export async function getForecast(city: City) {
   const responseBody = <T>(response: AxiosResponse<T>) => response.data;
   const json = <T>(url: string) => axios.get<T>(url).then(responseBody);
 
-  const forecast = await json<ForecastResponse>(`/open-data/forecast/meteorology/cities/daily/${city.ipmaID}.json`);
-  return forecast.data[0]
+  const forecast = await json<ForecastResponse>(`/public-data/forecast/aggregate/${city.ipmaID}.json`);
+  return forecast[0]
 }
