@@ -90,10 +90,16 @@ async function main() {
 
     if (city) {
       try {
-        const { tMax, tMin, probabilidadePrecipita } = await getForecast(city);
+        const response = await getForecast(city);
+        
+        if (!response) {
+          return console.log(messages.error.cityNotFound(cityName));
+        }
+
+        const { tMax, tMin, probabilidadePrecipita } = response;
         forecast = { tMax, tMin, precipitaProb: probabilidadePrecipita };
       } catch (error) {
-        return;
+        return console.log(messages.error.cityNotFound(cityName));
       }
     } else {
       return console.log(messages.error.cityNotFound(cityName));
