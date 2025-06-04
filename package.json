@@ -3,9 +3,8 @@
   "bin": {
     "climato": "./dist/index.js"
   },
-  "version": "0.1.1",
-  "description": "checks weather",
-  "main": "index.js",
+  "version": "0.2.0",
+  "description": "A CLI tool to check the weather",
   "type": "module",
   "scripts": {
     "dev": "tsc -w",
@@ -16,9 +15,14 @@
     "type": "git",
     "url": "git+https://github.com/HugoBar/climato.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "cli",
+    "tool",
+    "weather",
+    "climato"
+  ],
+  "author": "Hugo Barreiro",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/HugoBar/climato/issues"
   },
